@@ -1913,10 +1913,10 @@ number:
     unit_of_measurement: gal
     on_value:
       then:
-        - sensor.template.publish:
-            id: clack_watermeter
-            state: !lambda |-
-              return id(totalWaterUsage);
+        - pulse_meter.set_total_pulses:
+            id: clack_flow_rate
+            value: !lambda |-
+              return id(totalWaterUsage) * id(pulse_per_gallons);
   ##
   # Set capacity days
   - platform: template
