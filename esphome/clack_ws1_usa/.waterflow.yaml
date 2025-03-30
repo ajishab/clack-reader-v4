@@ -7,7 +7,7 @@ sensor:
         input: true
         pullup: true
     filters:
-      - lambda: return x / id(pulse_per_gallon);
+      - lambda: return x / id(pulses_per_gallon);
     timeout: 2s
     icon: mdi:waves-arrow-right
     unit_of_measurement: GPM # Gallons GPM or Liters per minute 
@@ -26,7 +26,7 @@ sensor:
       state_class: total_increasing
       accuracy_decimals: 1
       filters:
-      - lambda: return x / id(pulse_per_gallon);
+      - lambda: return x / id(pulses_per_gallon);
       on_value:
         - globals.set:
             id: totalWaterUsage
