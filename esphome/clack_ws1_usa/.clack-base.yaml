@@ -21,7 +21,7 @@ api:
         - pulse_meter.set_total_pulses:
             id: clack_flow_rate
             value: !lambda |-
-              return id(totalWaterUsage) * id(pulse_per_gallon);
+              return id(totalWaterUsage) * id(pulses_per_gallon);
 
     - action: last_distance_value #set last measured salt distance to any value in inch.
       variables:
@@ -42,7 +42,7 @@ globals:
 #    initial_value: '00'
 
 # Clack DV flowmeter 27.60  / Clack WS1: 16.30 / (to be checked)
-  - id: pulse_per_gallon
+  - id: pulses_per_gallon
     type: float
     restore_value: yes
     initial_value: '62.00'
@@ -210,7 +210,7 @@ script:
       - pulse_meter.set_total_pulses: # Publish the initial state of totalWaterUsage on boot
           id: clack_flow_rate
           value: !lambda |-
-            return id(totalWaterUsage) * id(pulse_per_gallon);
+            return id(totalWaterUsage) * id(pulses_per_gallon);
       - text_sensor.template.publish:
             id: clack_cycle_step
             state: !lambda |-
@@ -296,7 +296,7 @@ script:
       - pulse_meter.set_total_pulses:
             id: clack_flow_rate
             value: !lambda |-
-              return id(totalWaterUsage) * id(pulse_per_gallon);
+              return id(totalWaterUsage) * id(pulses_per_gallon);
 
 ###  Define a script that visualize the cycle steps in regeneration cycle 4 steps
   - id: cycle_steps_4cycle_post
@@ -1814,8 +1814,8 @@ number:
   ##
   # Set pulse per gallons flowmeter
   - platform: template
-    id: clack_set_pulse_per_gallon
-    name: ${clack_set_pulse_per_gallon}
+    id: clack_set_pulses_per_gallon
+    name: ${clack_set_pulses_per_gallon}
     icon: mdi:pulse
     optimistic: true
     mode: box
@@ -1829,9 +1829,9 @@ number:
     on_value:
       then:
         - globals.set:
-            id: pulse_per_gallon
+            id: pulses_per_gallon
             value: !lambda |-
-              return id(clack_set_pulse_per_gallon).state;
+              return id(clack_set_pulses_per_gallon).state;
 
   ##
   # Set minimum distance (from bottom sensor / above plastic cap)
@@ -1916,7 +1916,7 @@ number:
         - pulse_meter.set_total_pulses:
             id: clack_flow_rate
             value: !lambda |-
-              return id(totalWaterUsage) * id(pulse_per_gallons);
+              return id(totalWaterUsage) * id(pulses_per_gallons);
   ##
   # Set capacity days
   - platform: template
