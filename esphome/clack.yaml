@@ -18,7 +18,7 @@ substitutions:
 
 packages:
   remote_package:
-    url: https://github.com/fonske/clack-reader-v4
+    url: https://github.com/ajishab/clack-reader-v4
     ref: ws1_usa
     refresh: 0s
     files: [ 
@@ -28,6 +28,7 @@ packages:
       esphome/clack_ws1_usa/.clack-optional.yaml,
       esphome/clack_ws1_usa/.clack-labels-en.yaml,
       esphome/clack_ws1_usa/board-esp32-atom-s3.yaml,
+      esphome/clack_ws1_usa/.waterflow.yaml,
     ]
 
 ### for developing/testing, uncomment local includes and comment out above remote_package packages part.
@@ -38,12 +39,6 @@ packages:
 ##  device_base3: !include clack_ws1_usa/.tof1.yaml
 #  device_base3:  !include clack_ws1_usa/.tof2.yaml
 #  device_base4:  !include clack_ws1_usa/.clack-optional.yaml
-
-external_components:
-  - source:
-      type: git
-      url: https://github.com/robertklep/esphome-custom-component
-    components: [ custom, custom_component ]
     
 time:
   - platform: homeassistant
@@ -65,7 +60,7 @@ wifi:
   ap:
     ssid: "${name}"
     password: "configesp"
-    ap_timeout: 15s
+    ap_timeout: 30s
 
 # Enable Over The Air Updates
 ota:
