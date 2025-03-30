@@ -1916,7 +1916,7 @@ number:
         - pulse_meter.set_total_pulses:
             id: clack_flow_rate
             value: !lambda |-
-              return id(totalWaterUsage) * id(pulses_per_gallons);
+              return id(totalWaterUsage) * id(pulses_per_gallon);
   ##
   # Set capacity days
   - platform: template
