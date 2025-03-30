@@ -34,7 +34,7 @@ sensor:
       if (id(vl53l1x_range_status).state > 0 || isnan(id(vl53l1x_raw_distance).state)) {
         return NAN;
       }
-      return id(vl53l1x_raw_distance).state / 25.4; #covert mm to in
+      return id(vl53l1x_raw_distance).state / 25.4; 
     filters:
       - clamp:
           min_value: 0.0
