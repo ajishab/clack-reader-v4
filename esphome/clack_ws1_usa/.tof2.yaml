@@ -23,36 +23,26 @@ sensor:
 
   - platform: template
     name: ${clack_distance_tof}
-    id: distance_cm
+    id: distance_in
     update_interval: 60s
-    unit_of_measurement: "cm"
-    accuracy_decimals: 1
+    unit_of_measurement: "in"
+    accuracy_decimals: 2
     device_class: distance
     state_class: measurement
     icon: mdi:ruler
-    internal: false
     lambda: |-
-       if (id(vl53l1x_range_status).state > 0) {
-         return NAN;
-       } else {
-         return id(vl53l1x_raw_distance).state;
-       }
+      if (id(vl53l1x_range_status).state > 0 || isnan(id(vl53l1x_raw_distance).state)) {
+        return NAN;
+      }
+      return id(vl53l1x_raw_distance).state / 25.4; #covert mm to in
     filters:
-      - lambda: |-
-          if (isnan(x)) {
-            return 0;
-          } else {
-            return x;
-          }
-      - lambda: return x/10;
       - clamp:
           min_value: 0.0
-          max_value: 230.0
-#        - median:
-      - delta: 0.2
+          max_value: 90.0  # about 230cm
+      - delta: 0.1
     on_value:
       then:
         - sensor.template.publish:
             id: clack_distance
-            state: !lambda |-
-              return id(distance_cm).state;
+            state: !lambda 'return id(distance_in).state;'
+
