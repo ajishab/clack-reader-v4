@@ -21,7 +21,7 @@ sensor:
       name: ${clack_watermeter_total}
       icon: mdi:water
       #update_interval: ${watermeter_update_interval}
-      unit_of_measurement: G
+      unit_of_measurement: gal
       device_class: water
       state_class: total_increasing
       accuracy_decimals: 1
